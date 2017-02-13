@@ -15,8 +15,8 @@ import static spark.Spark.*;
  *
  * @author kiquetal
  */
-public class TestingSpark {
-    static Logger logger=LoggerFactory.getLogger(TestingSpark.class);
+public class EntryPointWebRest {
+    static Logger logger=LoggerFactory.getLogger(EntryPointWebRest.class);
    
    
     
