@@ -4,19 +4,13 @@
  * and open the template in the editor.
  */
 package me.cresterida.sparkjava;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 import me.cresterida.sparkjava.controllers.ClienteController;
 import me.cresterida.sparkjava.controllers.PagosController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Spark;
 import static spark.Spark.*;
-import spark.resource.ClassPathResource;
 /**
  *
  * @author kiquetal
