@@ -7,6 +7,7 @@ package me.cresterida.sparkjava.controllers;
 
 import com.google.gson.Gson;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import me.cresterida.sparkjava.MyErrorMessage;
 import me.cresterida.sparkjava.MyMessage;
@@ -55,8 +56,32 @@ public class ClienteController {
      
         return false;
     }
-    public Map<Cliente,String> getAllClientes()
+    public static MyMessage getAllClientes(Request req, Response res)
     {
-        return null;
+
+          MyMessage msg;
+        res.header("Content-Type", "application/json");
+       
+         ClienteServices cs=new ClienteServicesImpl();
+        try
+        {
+            List<Cliente> lista = cs.getAllClients();
+            msg=new MySuccessMessage();
+            Map<String,List<Cliente>> map=new HashMap<>();
+            map.put("clientes", lista);
+            msg.setMessage(map);
+        }
+        catch(Exception ex)
+        {
+            msg=new MyErrorMessage();
+            Map<String,String> todo=new HashMap<>();
+            todo.put("errorMessage",ex.toString());
+            msg.setMessage(todo);
+            res.status(403);
+            
+        }
+        return msg;
+        
+        
     }
 }

@@ -7,6 +7,7 @@ package me.cresterida.sparkjava.services.impl;
 
 import java.util.List;
 import me.cresterida.sparkjava.domain.Cliente;
+import me.cresterida.sparkjava.exceptions.DuplicateClienteException;
 import me.cresterida.sparkjava.services.ClienteServices;
 import me.cresterida.sparkjava.util.UtilDB;
 import org.sql2o.Connection;
@@ -50,9 +51,10 @@ public class ClienteServicesImpl implements ClienteServices{
            
          if (existsClient(c))
          {
-             throw new RuntimeException("Usuario con RUC existente!!!");
+             throw new DuplicateClienteException("Usuario con RUC existente!!!");
          }
          
+         System.out.println("to insert" + c);
            
         try(Connection con=sql2.open())
         {

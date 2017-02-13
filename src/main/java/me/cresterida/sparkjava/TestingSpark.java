@@ -24,33 +24,7 @@ import spark.resource.ClassPathResource;
 public class TestingSpark {
     static Logger logger=LoggerFactory.getLogger(TestingSpark.class);
    
-    private static final String PROPERTIES = "mysql.properties";
-
-    
-    public static void loadFromProperties(){
-        System.out.println("lectura");
-		loadFromProperties(new File( "/resources/"+PROPERTIES));
-	}
-    public static void loadFromProperties( File f){
-        System.out.println("read from");
-		Properties properties = new Properties();
-		try {
-			if(f.exists() && f.isFile()){
-				logger.debug("Loading configuration from properties file... " + f.getPath());
-			    properties.load(new FileInputStream(f));
-                            System.out.println("a"+properties.toString());
-				logger.debug("Found properties: " + properties.toString());
-			
-			}
-                        else
-                        {
-                            System.out.println("Not exists" + f.getCanonicalPath());
-                        }
-		} catch (IOException e) {
-			System.out.println("Unable to read properties file '");
-		}
-	}
-    
+   
     
     public static void main(String[] args) throws IOException {
      Spark.exception(Exception.class, (exception, request, response) -> {
@@ -58,6 +32,7 @@ public class TestingSpark {
 });
    
       
+          get("/clientes",ClienteController::getAllClientes,new JSONTransformer());  
           post("/clientes","application/json",ClienteController::insertCliente,new JSONTransformer());
           get("/pagos","application/json",PagosController::insertPago,new JSONTransformer());        
     }

@@ -1,0 +1,6 @@
+#surefire
+#Sun Feb 12 23:43:05 PYST 2017
+maven.ext.class.path=/home/kiquetal/netbeans-8.2/java/maven-nblib/netbeans-eventspy.jar
+user.dir=/home/kiquetal/NetBeansProjects/mavenproject2/SparkJava
+localRepository=/home/kiquetal/.m2/repository
+basedir=/home/kiquetal/NetBeansProjects/mavenproject2/SparkJava
