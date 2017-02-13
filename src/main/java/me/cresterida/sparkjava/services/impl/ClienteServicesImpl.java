@@ -51,7 +51,7 @@ public class ClienteServicesImpl implements ClienteServices{
            
          if (existsClient(c))
          {
-             throw new DuplicateClienteException("Usuario con RUC existente!!!");
+             throw new DuplicateClienteException("Usuario con CI existente!!!");
          }
          
          System.out.println("to insert" + c);
