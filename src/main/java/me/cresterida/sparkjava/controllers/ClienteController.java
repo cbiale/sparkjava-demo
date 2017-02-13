@@ -13,6 +13,7 @@ import me.cresterida.sparkjava.MyErrorMessage;
 import me.cresterida.sparkjava.MyMessage;
 import me.cresterida.sparkjava.MySuccessMessage;
 import me.cresterida.sparkjava.domain.Cliente;
+import me.cresterida.sparkjava.exceptions.DuplicateClienteException;
 import me.cresterida.sparkjava.services.ClienteServices;
 import me.cresterida.sparkjava.services.impl.ClienteServicesImpl;
 import spark.Request;
@@ -37,6 +38,17 @@ public class ClienteController {
             Map<String,String> map=new HashMap<>();
             map.put("message", "Cliente agregado de forma exitosa");
             msg.setMessage(map);
+        }
+         
+        catch (DuplicateClienteException ex)
+        {
+             msg=new MyErrorMessage();
+            Map<String,String> todo=new HashMap<>();
+            todo.put("errorMessage",ex.getMessage());
+            msg.setMessage(todo);
+            res.status(400);
+            System.out.println("specific catch");
+            
         }
         catch(Exception ex)
         {
@@ -71,6 +83,7 @@ public class ClienteController {
             map.put("clientes", lista);
             msg.setMessage(map);
         }
+       
         catch(Exception ex)
         {
             msg=new MyErrorMessage();
