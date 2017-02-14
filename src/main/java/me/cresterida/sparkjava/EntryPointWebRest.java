@@ -39,7 +39,7 @@ public class EntryPointWebRest {
           post("/pagos","application/json",PagosController::insertPago,new JSONTransformer());
           get("/pagos/:pagosId",PagosController::getPago,new JSONTransformer()); 
           get("/clientes/:clienteId",ClienteController::getCliente,new JSONTransformer()); 
-
+          get("/clientes/:clienteId/pagos",ClienteController::getCliente,new JSONTransformer());
 
           get("/dame/*", (request, response) -> {
                     
@@ -49,7 +49,7 @@ public class EntryPointWebRest {
              return "dame";
           });
           get("*", (request, response) -> {
-                    
+             System.out.println(request.uri());
              System.out.println("404 not found!!");
              return "not found";
          });
