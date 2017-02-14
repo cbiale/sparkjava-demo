@@ -7,7 +7,10 @@ package me.cresterida.sparkjava.services.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Stream;
+import me.cresterida.sparkjava.domain.EmptyPagos;
 import me.cresterida.sparkjava.domain.Pagos;
+import me.cresterida.sparkjava.exceptions.InsertException;
 import me.cresterida.sparkjava.services.PagosServices;
 import me.cresterida.sparkjava.util.UtilDB;
 import org.sql2o.Connection;
@@ -23,13 +26,27 @@ public class PagosServiciosImpl implements PagosServices{
     
     
     
-    
     @Override
     public List<Pagos> getAllPagos() {
         
 
         
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        List<Pagos>list;
+                Sql2o sql2=UtilDB.getDatabase;
+        try(Connection con=sql2.open())
+        {
+            list=  con.createQuery("SELECT * FROM PAGOS")
+                         .executeAndFetch(Pagos.class);
+            
+            System.out.println(list);
+            
+                            
+        }
+        
+        return list;
+        
+        
     }
 
     @Override
@@ -64,16 +81,20 @@ public class PagosServiciosImpl implements PagosServices{
         System.out.println(pago.getClient());
         try(Connection con=sql2.open())
         {
-            con.createQuery("INSERT INTO PAGOS (comercio_id,cliente_id,monto,operacion)"
-                    + "VALUES (:comercio_id,:cliente_id,:monto,:operacion)")
-                    .addParameter("cliente_id",pago.getClient().getId())
-                    .addParameter("comercio_id",pago.getComercio().getId())
+            con.createQuery("INSERT INTO PAGOS (comercio_id,cliente_id,monto,operaction)"
+                    + "VALUES (:comercio_id,:cliente_id,:monto,:operaction)")
+                    .addParameter("cliente_id",pago.getCliente_id())
+                    .addParameter("comercio_id",pago.getComercio_id())
                     .addParameter("monto",pago.getMonto())
-                    .addParameter("operacion", new Date())
+                    .addParameter("operaction", new Date())
                     .executeUpdate();
                                
             
                             
+        }
+        catch(Exception ex)
+        {
+            throw new InsertException(ex.getMessage());
         }
         
         return true;
@@ -85,9 +106,14 @@ public class PagosServiciosImpl implements PagosServices{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+
     @Override
-    public boolean findPagos(String pagosId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Pagos findPagos(int pagosId) {
+
+       List<Pagos> l=getAllPagos();
+       System.out.println("buscando"+pagosId);
+       Stream<Pagos> s=l.stream().filter(p-> p.getId().intValue()==pagosId);
+      return s.findFirst().orElseGet(()-> new EmptyPagos());
     }
     
 }

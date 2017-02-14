@@ -3,15 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package me.cresterida.sparkjava;
-
-import java.util.Map;
+package me.cresterida.sparkjava.domain;
 
 /**
  *
  * @author kiquetal
  */
-public interface MyMessage {
-    public void setMessage(Map m);
-    public <T> void setMessage(T e);
+public class EmptyPagos extends Pagos{
+    
 }

@@ -26,6 +26,7 @@ public class UtilDB {
 
     static Sql2o obtainConnection()
     {
+        System.out.println("only one");
         try {
             return new Sql2o(getProperties(MYSQL_URL),getProperties(MYSQL_USER),getProperties(MYSQL_PASSWORD));
         } catch (IOException ex) {

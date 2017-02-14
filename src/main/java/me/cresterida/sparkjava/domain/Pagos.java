@@ -8,7 +8,6 @@ package me.cresterida.sparkjava.domain;
 import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;
-import java.util.UUID;
 
 
 /**
@@ -18,13 +17,19 @@ import java.util.UUID;
 @Data
 public class Pagos {
 
-     BigDecimal uuid;
+     BigDecimal id;
      BigDecimal monto;
      Comercio comercio;
      Cliente client;
-     Date operacion;
+     Date operaction;
+     String comercio_id;
+     String cliente_id;
     
-    
+    @Override
+    public String toString()
+    {
+        return "id"+this.id+"monto"+this.monto+"comercio_id"+this.comercio_id+" cliente_id"+this.cliente_id;
+    }
 
     
 }

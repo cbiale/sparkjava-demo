@@ -44,4 +44,9 @@ public final class MyErrorMessage implements MyMessage{
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public <T> void setMessage(T e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

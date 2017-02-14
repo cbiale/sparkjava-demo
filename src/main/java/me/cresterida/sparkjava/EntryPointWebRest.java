@@ -6,6 +6,7 @@
 package me.cresterida.sparkjava;
 import java.io.IOException;
 import me.cresterida.sparkjava.controllers.ClienteController;
+import me.cresterida.sparkjava.controllers.ComercioController;
 import me.cresterida.sparkjava.controllers.PagosController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,14 +22,36 @@ public class EntryPointWebRest {
    
     
     public static void main(String[] args) throws IOException {
-     Spark.exception(Exception.class, (exception, request, response) -> {
+    
+        
+        
+        Spark.exception(Exception.class, (exception, request, response) -> {
     exception.printStackTrace();
 });
    
-      
+
           get("/clientes",ClienteController::getAllClientes,new JSONTransformer());  
+          get("/comercios",ComercioController::getAllComercio,new JSONTransformer());  
+       
+          post("/comercios",ComercioController::insertComercio,new JSONTransformer());
           post("/clientes","application/json",ClienteController::insertCliente,new JSONTransformer());
-          get("/pagos","application/json",PagosController::insertPago,new JSONTransformer());        
+          get("/pagos",PagosController::getAllPagos,new JSONTransformer()); 
+          post("/pagos","application/json",PagosController::insertPago,new JSONTransformer());
+          get("/pagos/:pagosId",PagosController::getPago,new JSONTransformer()); 
+
+
+          get("/dame/*", (request, response) -> {
+                    
+             return "dame";
+          });
+          get("/dame", (request, response) -> {
+             return "dame";
+          });
+          get("*", (request, response) -> {
+                    
+             System.out.println("404 not found!!");
+             return "not found";
+         });
     }
 }
 

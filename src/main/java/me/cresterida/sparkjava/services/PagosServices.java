@@ -7,6 +7,7 @@ package me.cresterida.sparkjava.services;
 
 import java.util.List;
 import me.cresterida.sparkjava.domain.Pagos;
+import me.cresterida.sparkjava.exceptions.InsertException;
 
 /**
  *
@@ -18,7 +19,7 @@ public interface PagosServices {
     List<Pagos> getAllPagosByUser(String userId);
     boolean insertPago(Pagos pagos);
     boolean deletePagos(Pagos pagos);
-    boolean findPagos(String pagosId);
+    Pagos findPagos(int pagosId);
     
     
 }
