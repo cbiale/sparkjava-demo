@@ -6,7 +6,9 @@
 package me.cresterida.sparkjava.services.impl;
 
 import java.util.List;
+import java.util.stream.Stream;
 import me.cresterida.sparkjava.domain.Cliente;
+import me.cresterida.sparkjava.domain.EmptyCliente;
 import me.cresterida.sparkjava.exceptions.DuplicateClienteException;
 import me.cresterida.sparkjava.services.ClienteServices;
 import me.cresterida.sparkjava.util.UtilDB;
@@ -38,9 +40,11 @@ public class ClienteServicesImpl implements ClienteServices{
     }
 
     @Override
-    public Cliente findCliente(String uuid) {
-
-        return null;
+    public Cliente findCliente(int uuid) {
+        System.out.println("encontrando"+uuid);
+        List<Cliente> l=getAllClients();
+        Stream<Cliente>sm=l.stream().filter(c->c.getId().intValue()==uuid);
+        return sm.findFirst().orElseGet(()-> new EmptyCliente());
 
     }
 

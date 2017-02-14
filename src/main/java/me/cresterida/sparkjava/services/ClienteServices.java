@@ -14,7 +14,7 @@ import me.cresterida.sparkjava.domain.Cliente;
  */
 public interface ClienteServices {
     List<Cliente> getAllClients();
-    Cliente findCliente(String uuid);
+    Cliente findCliente(int uuid);
     boolean addCliente(Cliente c);
     boolean removeCliente(Cliente c);
     boolean existsClient(Cliente c);

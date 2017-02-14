@@ -38,6 +38,7 @@ public class EntryPointWebRest {
           get("/pagos",PagosController::getAllPagos,new JSONTransformer()); 
           post("/pagos","application/json",PagosController::insertPago,new JSONTransformer());
           get("/pagos/:pagosId",PagosController::getPago,new JSONTransformer()); 
+          get("/clientes/:clienteId",ClienteController::getCliente,new JSONTransformer()); 
 
 
           get("/dame/*", (request, response) -> {

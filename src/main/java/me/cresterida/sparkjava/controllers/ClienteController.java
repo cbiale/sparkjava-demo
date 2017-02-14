@@ -13,7 +13,9 @@ import me.cresterida.sparkjava.MyErrorMessage;
 import me.cresterida.sparkjava.MyMessage;
 import me.cresterida.sparkjava.MySuccessMessage;
 import me.cresterida.sparkjava.domain.Cliente;
+import me.cresterida.sparkjava.domain.EmptyCliente;
 import me.cresterida.sparkjava.exceptions.DuplicateClienteException;
+import me.cresterida.sparkjava.exceptions.NotFoundException;
 import me.cresterida.sparkjava.services.ClienteServices;
 import me.cresterida.sparkjava.services.impl.ClienteServicesImpl;
 import spark.Request;
@@ -97,4 +99,45 @@ public class ClienteController {
         
         
     }
+    public static MyMessage getCliente(Request req,Response res)
+    {
+        MyMessage msg;
+        res.header("Content-type", "application/json");
+           ClienteServices pg=new ClienteServicesImpl();
+        String clientId=req.params(":clienteId");
+         try
+        {
+            msg=new MySuccessMessage();
+            Cliente p=pg.findCliente(Integer.parseInt(clientId));
+            
+            if (p instanceof EmptyCliente)
+                throw new NotFoundException("No se encontro registro con el id Proveido");
+            Map<String,String>m=new HashMap<>();
+            m.put("pago",p.toString());
+            msg.<Cliente>setMessage(p);
+        }
+        catch (NotFoundException ex)
+        {
+            msg=new MyErrorMessage();
+         Map<String,String>m=new HashMap<>();
+         m.put("errorMessage",ex.toString());
+         msg.setMessage(m);
+         res.status(404);
+        }
+        catch(Exception ex)
+        {
+            
+         msg=new MyErrorMessage();
+         Map<String,String>m=new HashMap<>();
+         m.put("errorMessage",ex.toString());
+         msg.setMessage(m);
+         res.status(500);
+            
+        }
+        
+        return msg;
+    }
+    
+    
+    
 }

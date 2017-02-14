@@ -15,8 +15,8 @@ import java.util.Map;
 public class MySuccessMessage implements MyMessage{
 
 private String message;    
-private Object t1;
-private Map<String,String> response=new HashMap<>();
+private Object response;
+//private Map<String,String>response;
 
     /**
      * @return the message
@@ -42,11 +42,12 @@ private Map<String,String> response=new HashMap<>();
     {
         this.response=m;
     }
+    
     public void setMessage(String message) {
         this.message = message;
     }
     public <T> void  setMessage (T e)
     {
-        this.t1=e;
+        this.response=e;
     }
 }
